@@ -11,47 +11,33 @@ const PhotoSlider = () => {
     infinite: true,
     centerPadding: "60px",
     slidesToShow: 3,
+    swipeToSlide: true,
     dots: true,
-    speed: 500,
+    autoplaySpeed: 2000,
+    pauseOnHover: false,
     autoplay: true,
-    afterChange: (current, next) => {
-      setIsCenter(next === 1);
-    },
+    initialSlide: 0,
+    // afterChange: (current, next) => {
+    //   setIsCenter(next === 1);
+    // },
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow: 1,
         },
       },
     ],
     appendDots: (dots) => (
       <div
         style={{
-          borderRadius: "10px",
           padding: "10px",
-          marginTop: "12px",
         }}
       >
-        <ul style={{ margin: "0px" }}> {dots} </ul>
+        <ul className="p-2 flex justify-center m-0 items-center gap-x-3">
+          {" "}
+          {dots}{" "}
+        </ul>
       </div>
     ),
     customPaging: (i) => (
@@ -59,21 +45,16 @@ const PhotoSlider = () => {
         style={{
           width: "10px",
           height: "10px",
-          borderRadius: "50%",
-          display: "inline-block",
-          margin: "0 5px",
-          backgroundColor: "gray",
-          marginBottom: "10px",
         }}
-        className="custom-dot"
-      />
+        className="rounded-full bg-gray-400 inline-block hover:bg-yellow"
+      ></div>
     ),
   };
 
   return (
-    <div className="mt-5">
-      <div className="slider-container overflow-hidden">
-        <Slider {...settings} className="pb-4">
+    <div className="mt-2">
+      <div className="slider-container overflow-hidden w-full py-5">
+        <Slider {...settings} dotsClass="custom-dot">
           {photo.map((item) => (
             <div key={item.id} className="pl-5">
               <img
